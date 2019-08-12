@@ -1,0 +1,55 @@
+\documentclass[12pt, oneside]{article}
+\usepackage{geometry}
+\geometry{a4paper}
+\usepackage{graphicx}
+\usepackage{color}
+\usepackage{enumerate}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+\begin{document}
+\title{Diffusion based theories}
+\author{Mohit Mehta}
+\date{October 8, 2013}
+\maketitle
+Types of diffusion and diffusion based theories. This file will list out the different theories I have come across along with the references(In case you need to refer them later) 
+\tableofcontents
+\newpage
+\section{Introduction}
+Very good reference for diffusion theories is \textit{\url{http://sinnott.mse.ufl.edu/Backgrounds/theo02_diff.html}}
+
+\section{Single File Diffusion}
+Imagine a pipe which has particles with diameters half or greater than half. They move in as a single file or 1D. Number of cases were considered. 
+
+\begin{enumerate}
+
+\item {\bf{No jumping}}
+
+Here the authors talk about the case where the particle cannot hop/jump/surpass another particle and their position is never changed with respect to the other particles.
+\begin{figure}[htp!]
+\centering 
+{\includegraphics[width=0.5\textwidth,height=0.2\textheight]{figures/Single_file_diff_no_jump.pdf}} 
+\caption{This figure gives an example of Single File Diffusion. The rectangular region represents a narrow channel with circular particles which cannot surpass other particle as defined by SFD.}
+\label{fig:SFD_no_jump} 
+\end{figure}
+\newpage
+\item {\bf{With jumping}}
+
+Here the authors talk about the case where the particle can hop/jump/surpass another particle and their position does change however the center of mass or the group of molecules or particles still move together as a whole.
+\begin{figure}[htp!]
+\centering 
+{\includegraphics[width=0.5\textwidth,height=0.2\textheight]{figures/Single_file_diff_with_jump.pdf}} 
+\caption{This figure gives an example of Single File Diffusion. The rectangular region represents a narrow channel with circular particles which cannot surpass other particle as defined by SFD.}
+\label{fig:SFD_with_jump} 
+\end{figure}
+\end{enumerate}
+These models are explained in greater detail in ref. \cite{Hahn1998}
+\newpage
+\bibliographystyle{unsrt} 
+\bibliography{library}
+\end{document}

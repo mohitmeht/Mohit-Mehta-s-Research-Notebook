@@ -1,0 +1,356 @@
+\documentclass[Notes.tex]{subfiles}
+%force-texpad-dependency: Notes.tex
+\begin{document}
+The boundary conditions at the electrolyte/air interface. The concentration of gas by a solvent is done at equilibrium, that means the gas reaches the possible maximum limit that it can dissolve and this definition is commonly used for Bunsen coefficient and for Henry's constant. However in case of Li-air batteries the oxygen gets dissolved in the solvent and is used up in a reaction. If higher discharge current is used then the ability of the oxygen molecules to dissolved in the solvent might decrease and limit the power density of the battery.
+Here we take a look at a different approach suggested by Horstmann et al.\cite{Horstmann2013}. The author suggests a method to compute flux at the interface ($N_{O_2}$). The flux bears the footprints of the Butler-Volmer equations,
+\begin{equation}
+N_{o_2} = k^fp_{o_2} - k^b c_{o_2}(0)
+\label{eq:oxygen_flux}
+\end{equation}
+%[\si{\mole\per\pascal\per\meter\squared\per\second}] is the unit for $k^f$
+where $N_{o_2}$ is the flux of gas entering the system, $k^f$ is the rate of oxygen flowing into the battery, $k^b$ is the rate of oxygen flowing gas exiting the battery, $p_{o_2}$ is the partial pressure of the gas, $c_{o_2}(0)$ is the concentration of the gas dissolved in the solvent at $x=0$. 
+The forward rate constant is determined by using Hertz-Knudsen equation and assuming that only a small fraction, $f = 1\%$, of the gas particles hitting the electrolyte/ambient interface enters the liquid, 
+\begin{equation}
+k^f = f\left(2\pi M_{O_2}RT\right)
+\end{equation}
+At equilibrium ($N_{o_2} = 0$) we should recover Henry's law; hence, by
+imposing $N_{o_2} = 0$, we get, 
+\begin{equation}
+\frac{k^f}{k^b} = \frac{c_{o_2}(0)}{p_{o_2}} = k_H^{-1} \label{eq:oxygen_flux_equilibrium}\\
+\end{equation}
+where $k_H$ is the Henry's law constant. The concentration at the surface ($x=0$) is computed using Fickian diffusion,
+\begin{equation}
+N_{o_2}  = -D_{o_2,\textrm{eff}}\nabla c_{o_2}(0) \label{eq:Fickian_diffusion_x_0}
+\end{equation}
+where $D_{o_{2,\textrm{eff}}}$ is the diffusion coefficient of oxygen in the electrolyte. Assuming 1-D,
+\begin{equation}
+N_{o_2}  = -D_{o_{2,\textrm{eff}}}\frac{\partial c_{o_2}(0)}{\partial x}
+\end{equation}
+Now using equations \ref{eq:oxygen_flux}, \ref{eq:oxygen_flux_equilibrium}, \ref{eq:Fickian_diffusion_x_0} we obtain a relation for dissolved oxygen concentration at x=0.
+\begin{equation}
+k^fp_{o_2} - k^b c_{o_2}(0) = -D_{o_{2,\textrm{eff}}}\frac{\partial c_{o_2}(0)}{\partial x}\nonumber
+\end{equation}
+\begin{equation}
+k^f \left(p_{o_2} - k_H c_{o_2}(0)\right) = -D_{o_{2,\textrm{eff}}}\frac{\partial c_{o_2}(0)}{\partial x}\nonumber
+\end{equation}
+\begin{equation}
+\left.\frac{\partial c_{o_2}(x)}{\partial x}\right|_{x=0} =   \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) c_{o_2}(0) - \frac{k^fp_{o_2}}{D_{o_{2,\textrm{eff}}}}
+\end{equation} 
+Under the steady state conditions the modified Fick's second law of diffusion becomes,
+\begin{equation}
+\frac{d^2 c_{o_2}(x)}{dx^2}-\frac{kc_o(x)}{D_{\text{eff}}}=0
+\end{equation}
+The solution of the above equation is,
+\begin{equation}
+c_{o_2}(x)=C_1\cosh{\left(\frac{x}{\lambda}\right)} + C_2\sinh{\left(\frac{x}{\lambda}\right)}\label{eq:Li2O2_model_1_dc_ficks_second_law_solution}
+\end{equation}
+where,
+\begin{equation}
+\lambda = \sqrt{\frac{D_\textrm{eff}}{k}}
+\end{equation}
+and
+\begin{equation}
+k = - 2k_0a\sinh{\left(\frac{n}{2V_T}\eta\right)} \label{eq:k_diffusion_kinetics}
+\end{equation}
+The boundary conditions are,
+\begin{subequations}
+\begin{enumerate}
+\item[(a)] \textbf{Boundary condition at $x=0$}
+\begin{equation}
+\left.\frac{\partial c_{o_2}(x)}{\partial x}\right|_{x=0} =   \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) c_{o_2}(0) - \frac{k^fp_{o_2}}{D_{o_{2,\textrm{eff}}}} \label{bc:x=0}
+\end{equation}
+\item[(b)] \textbf{Boundary condition at $x=l$}
+\begin{equation}
+\left.\frac{dc_{o_2}(x)}{dx}\right|_{x=l}=0 \label{bc:x=l}
+\end{equation}
+\end{enumerate}
+\end{subequations}
+On applying the second boundary condition~(\ref{bc:x=l}) to eqn.~\ref{eq:Li2O2_model_1_dc_ficks_second_law_solution}, we get,
+\begin{equation}
+\left.\frac{dc_{o_2}(x)}{dx}\right|_{x=l} = \frac{C_1}{\lambda}\sinh{\left(\frac{x}{\lambda}\right)} + \frac{C_2}{\lambda}\cosh{\left(\frac{x}{\lambda}\right)} =0\nonumber
+\end{equation}
+\begin{equation}
+C_2 = -C_1\tanh{\left(\frac{l}{\lambda}\right)}
+\end{equation}
+replacing $C_2$ in eqn~\ref{eq:Li2O2_model_1_dc_ficks_second_law_solution} with the above relation,
+\begin{equation}
+c_{o_2}(x)=C_1\left[\cosh{\left(\frac{x}{\lambda}\right)}-\tanh{\left(\frac{l}{\lambda}\right)}\sinh{\left(\frac{x}{\lambda}\right)}\right]
+\end{equation}
+Now using the boundary condition \ref{bc:x=0} to find the integration constant $C_1$,
+\begin{equation}
+\left.\frac{\partial c_{o_2}(x)}{\partial x}\right|_{x=0} =  -\frac{C_1}{\lambda}\tanh{\left(\frac{l}{\lambda}\right)} =  \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) c_{o_2}(0) - \frac{k^fp_{o_2}}{D_{o_{2,\textrm{eff}}}}\nonumber
+\end{equation}
+Rewriting the above equation and on using the expression of $c_{o_2}(0)$, we get, 
+\begin{equation}
+%C_1 &= \frac{\lambda}{\tanh{\left(\frac{l}{\lambda}\right)}}\left[\frac{k^fp_{o_2}}{D_{o_{2,\textrm{eff}}}} - \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) c_{o_2}(0) \right]\nonumber\\
+C_1 = \frac{\lambda}{\tanh{\left(\frac{l}{\lambda}\right)}}\left[\frac{k^fp_{o_2}}{D_{o_{2,\textrm{eff}}}} - \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)\times C_1 \right]\nonumber
+\end{equation}
+The integration constant $C_1$ is given by,
+\begin{equation}
+C_{o2} = C_1 = \left[\frac{\lambda k^fp_{o_2}} {\tanh{\left(\frac{l}{\lambda}\right)} D_{o_{2,\textrm{eff}}} + \lambda k^f k_H}\right]
+\end{equation}
+The final expression to compute spatial variation of the oxygen concentration in the cathode for Li-air batteries with oxygen dissolution kinetics is,
+\begin{equation}
+c_{o_2}(x)=C_{o2}\left[\cosh{\left(\frac{x}{\lambda}\right)}-\tanh{\left(\frac{l}{\lambda}\right)}\sinh{\left(\frac{x}{\lambda}\right)}\right]\label{eq:dc_oxygen_concentration_diffusion_kinetics}
+\end{equation}
+where $C_{o2}$ depends upon diffusion length of the oxygen ($\lambda$), diffusion coefficient of oxygen in the electrolyte, partial pressure of oxygen in the region just outside the cathode, $k_f$ is the rate of oxygen dissolving in the electrolyte, and $K_H$ is the Henry's law constant.
+The discharge current can be computed by replacing $c_{o_2}(x)$ from the above equation.
+\begin{equation}
+	i_F = A\int_{0}^{l} r_c\,dx
+\end{equation}
+where the reaction rate in the cathode ($r_c$) is given by
+\begin{equation}
+	r_c = nFkc_{o_2}(x)
+\end{equation}
+we substitute the expression for $r_c$ and $c_{o_2}(x)$ in the equation for the Faradaic current, we get
+\begin{align}
+	\qquad\qquad\qquad i_F &= nFAk\int_{0}^{l}c_{o_2}(x)dx \label{eq:dc_faradaic_current_integral}\\
+	&= nFkC_{o2}\int_{0}^{l} \left[ \cosh{\left(\frac{x}{\lambda}\right)} - \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)} \right]\nonumber
+\end{align}
+The expression for the Faradaic current after integration comes out to be,
+\begin{equation}
+	i_F  =nFkC_{o2}\lambda\tanh{\left(\frac{l}{\lambda}\right)}\label{eq:faradaic_current_w_kinetics_diffusion}
+\end{equation}
+\paragraph{Small-Signal Analysis}
+The equation to compute the impedance spectra can be computed by replacing the 
+dc values of the Faradaic current, over-potential, reaction rate, and oxygen 
+concentration with $i_F + \delta i_F e^{j\omega t}$, $\eta + \delta\eta 
+e^{j\omega t}$, $k + \delta k e^{j\omega t}$, and $c_{o_2} (x) + \delta c_{o_2} 
+(x) e^{j\omega t}$ respectively in 
+eqn.~\ref{eq:faradaic_current_w_kinetics_diffusion}.
+\begin{align}
+i_F + \delta i_F e^{j\omega t} &= nFA\left(k + \delta k e^{j\omega t}\right) 
+\int_0^l \left( c_{o_2} (x) + \delta c_{o_2} (x) e^{j\omega t}\right)\;dx\\
+= nFA& \left[k \int_0^l c_{o_2} (x) \;dx + k\int_0^l\delta c_{o_2} (x) 
+e^{j\omega t}\;dx + \delta k e^{j\omega t}\int_0^l\delta c_{o_2} (x) e^{j\omega 
+t}\;dx + \delta k e^{j\omega t} \int_0^l c_{o_2} 
+(x)\;dx\right]\label{eq:Small_signal_}\\
+\intertext{by using the equation~\ref{eq:dc_faradaic_current_integral} and by 
+neglecting the third term (since the product $\delta c_{o_2}\times\delta k$ is 
+negligible), we get,}
+&\qquad\qquad\qquad\qquad\delta i_F = nFA\left[k\int_0^l\delta c_{o_2} (x)\;dx 
++ \delta k\int_0^l c_{o_2} (x) 
+\;dx\right]\label{eq:small_signal_faradaic_current_for_diffusion_kinetics}\\
+\intertext{This is the small-signal Faradaic current for Li-air batteries 
+considering the effect of diffusion kinetics on the consumption of oxygen. 
+Next, we calculate the equation for spatial variation of the oxygen 
+concentration during impedance spectrum measurements. We start with 
+small-signal form of the Fick's second law of diffusion,}
+&\qquad\qquad\qquad\qquad\quad \frac{d^2\delta c_o(x)}{dx^2} - \frac{\left(k + 
+j\omega\epsilon_0\right)}{D_{\text{eff}}}\delta c_o(x) = \frac{\delta 
+k\,c_o(x)}{D_{\text{eff}}} 
+\label{eq:small_signal_ficks_second_law_for_diffusion_kinetics}
+\end{align}
+The two boundary conditions after linearizing eqns.~\ref{bc:x=0} and \ref{bc:x=l} are,
+\begin{enumerate}
+\begin{subequations}
+\item[(a)] \textbf{Boundary condition at $x=0$}
+\begin{align}
+\left.\frac{\partial\,\delta c_{o_2}(x)}{\partial x}\right|_{x=0} =   
+\left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) & \delta c_{o_2}(0) 
+\label{bc:small_signal_x=0}
+\end{align}
+\item[(b)] \textbf{Boundary condition at $x=l$}
+\begin{align}
+\left.\frac{d\,\delta c_{o_2}(x)}{dx}\right|_{x=l}=0
+\label{bc:small_signal_x=l}
+\end{align}
+\end{subequations}
+\end{enumerate}
+The complementary solution of 
+equation~\ref{eq:small_signal_ficks_second_law_for_diffusion_kinetics} is,
+\begin{align}
+	\delta c_{o_2c} & = C_1 \cosh{\left(\frac{x}{\delta\lambda}\right)} + C_2 
+	\sinh{\left(\frac{x}{\delta\lambda}\right)}\label{eq:complementary_solution_ficks_second_law_for_diffusion_kinetics}\\
+	\intertext{and the particular solution is}
+	\delta c_{o_2p} & = C_3 \cosh{\left(\frac{x}{\lambda}\right)} + C_4 
+	\sinh{\left(\frac{x}{\lambda}\right)}\label{eq:particular_solution_ficks_second_law_for_diffusion_kinetics}\\
+\intertext{The final solution for $\delta c_o(x)$ is,}
+	\delta c_{o_2}(x) =  C_1 \cosh{\left(\frac{x}{\delta\lambda}\right)} + & C_2 	\sinh{\left(\frac{x}{\delta\lambda}\right)} + C_3 \cosh{\left(\frac{x}{\lambda}\right)} + C_4 	\sinh{\left(\frac{x}{\lambda}\right)}\label{eq:total_small_signal_oxygen_concentration_solution_for_diffusion_kinetics}
+\end{align}
+where $C_1$, $C_2$, $C_3$, and $C_4$ are integration constants, $\delta\lambda = \sqrt{\sfrac{D_{\text{eff}}}{\left(k+j\omega\epsilon_0\right)}}$ and $\lambda = \sqrt{\left(\sfrac{D_{\text{eff}}}{k}\right)}$. We first find the integration constants $C_3$ and $C_4$ by substituting the particular solution (eqn.~\ref{eq:particular_solution_ficks_second_law_for_diffusion_kinetics}) 
+into eqn.~\ref{eq:small_signal_ficks_second_law_for_diffusion_kinetics} and comparing left and right sides of the resulting equation. We first simplify the L.H.S (Left Hand Side),
+\begin{align}
+	\allowdisplaybreaks\displaybreak[0]
+	L.H.S &= \frac{d^2}{dx^2}\left[C_3 \cosh{\left(\frac{x}{\lambda}\right)} + 
+	C_4 \sinh{\left(\frac{x}{\lambda}\right)}\right] - \frac{\left(k + 
+	j\omega\epsilon_0 \right)}{D_{\text{eff}}} 
+	\left[C_3\cosh{\left(\frac{x}{\lambda}\right)} + C_4 
+	\sinh{\left(\frac{x}{\lambda}\right)}\right]\nonumber\\
+	&=\frac{1}{\lambda^2}\left[C_3 \cosh{\left(\frac{x}{\lambda}\right)} + C_4 \sinh{\left(\frac{x}{\lambda}\right)}\right] - \left[\frac{1}{\lambda^2} + \frac{j\omega\epsilon_0}{D_{\text{eff}}}\right] \left[C_3 \cosh{\left(\frac{x}{\lambda}\right)} + C_4 \sinh{\left(\frac{x}{\lambda}\right)}\right]\nonumber\\
+	& \qquad\qquad\qquad L.H.S = -\frac{j\omega\epsilon_0}{D_{\text{eff}}} \left[C_3 \cosh{\left(\frac{x}{\lambda}\right)} + C_4 \sinh{\left(\frac{x}{\lambda}\right)}\right]\\
+\intertext{using eqn.~\ref{eq:dc_oxygen_concentration_diffusion_kinetics}, the R.H.S of the resulting equation becomes,}
+	& \qquad\qquad\quad R.H.S = \frac{\delta k\,C_{o2}}{D_{\text{eff}}} \left[ 
+	\cosh{\left(\frac{x}{\lambda}\right)}- 
+	\tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)} 
+	\right]\\
+\intertext{equating L.H.S and R.H.S, we get}
+%	-\frac{j\omega\epsilon_0}{\cancel{D_{\text{eff}}}}& \left[C_3 
+%\cosh{\left(\frac{x}{\lambda}\right)} + C_4 
+%\sinh{\left(\frac{x}{\lambda}\right)}\right] = \frac{\delta 
+%k\,C_{o2}}{\cancel{D_{\text{eff}}}} 
+%\left[\cosh{\left(\frac{x}{\lambda}\right)}-\tanh{\left(\frac{l}{\lambda}\right)}\sinh{\left(\frac{x}{\lambda}\right)}\right]
+	-j\omega\epsilon_0& \left[C_3 
+	\cosh{\left(\frac{x}{\lambda}\right)} + C_4 
+	\sinh{\left(\frac{x}{\lambda}\right)}\right] = \delta k\,C_{o2} \left[ 
+	\cosh{\left(\frac{x}{\lambda}\right)}- 
+	\tanh{\left(\frac{l}{\lambda}\right)} 
+	\sinh{\left(\frac{x}{\lambda}\right)} \right]\nonumber\\
+\intertext{comparing both sides, we obtain integration constants $C_3$ and 
+$C_4$}
+	& \qquad\qquad\qquad\qquad\qquad\qquad C_3 = - \frac{\delta 
+	k\,C_{o2}}{j\omega\epsilon_0}\\
+	& \qquad\qquad\qquad\qquad\qquad C_4 =  \frac{\delta 
+	k\,C_{o2}}{j\omega\epsilon_0}\tanh{\left(\frac{l}{\lambda}\right)}
+\intertext{Substituting $C_3$ and $C_4$ in equation \ref{eq:total_small_signal_oxygen_concentration_solution_for_diffusion_kinetics}, we get,}
+	\delta c_{o_2}(x) &=   C_1 \cosh{\left(\frac{x}{\delta\lambda}\right)}  + C_2\sinh{\left(\frac{x}{\delta\lambda}\right)} - \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\cosh{\left(\frac{x}{\lambda}\right)} + \frac{\delta k\, C_{o2}}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)}	\sinh{\left(\frac{x}{\lambda}\right)}\label{eq:small_signal_oxygen_concentration_w_C3_C4_diffusion_kinetics}\\	
+\intertext{The integration constant $C_2$ is obtained using the boundary condition \ref{bc:small_signal_x=l}} 
+	& \qquad\qquad\qquad\qquad\qquad C_2 = - C_1 \tanh{\left(\frac{l}{\delta\lambda}\right)} \label{eq:small_signal_C2_intermediate_diffusion_kinetics}\\
+\intertext{and the final constant $C_1$ is obtained by applying the boundary 
+condition~\ref{bc:small_signal_x=0}. The next few equations are the intermidiate steps to obtain the relation for the constant. After taking the derivative and applying boundary condition to the L.H.S, we get, }
+	&\qquad\qquad\qquad \frac{C_2}{\delta\lambda}  + 
+	\frac{\delta k\, C_{o2}}{j\omega\epsilon_0\lambda} 
+	\tanh{\left(\frac{l}{\lambda}\right)}  =   
+	\left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)  \delta c_{o_2}(0)\nonumber\\
+\intertext{Next we substitute $C_2$ from eqn. \ref{eq:small_signal_C2_intermediate_diffusion_kinetics} and the relation becomes,} 
+	&\qquad\quad \frac{-C_1}{\delta\lambda} 
+	\tanh{\left(\frac{l}{\delta\lambda}\right)} + \frac{\delta k\, 
+	C_{o2}}{j\omega\epsilon_0\lambda} 
+	\tanh{\left(\frac{l}{\lambda}\right)}  =   
+	\left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) \delta c_{o_2}(0)\nonumber\\
+%	&\qquad\quad \frac{C_1}{\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} = \frac{\delta k\, C_{o2}}{j\omega\epsilon_0\lambda} \tanh{\left(\frac{l}{\lambda}\right)} - \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)  \delta c_{o_2}(0)\nonumber \\
+\intertext{then we substitute $\delta c_{o_2}(0)$ on the R.H.S with eqn.~\ref{eq:small_signal_oxygen_concentration_w_C3_C4_diffusion_kinetics} and eqn.~\ref{eq:small_signal_C2_intermediate_diffusion_kinetics}. After rearranging the equation, we get,}
+%	&\qquad\qquad\qquad\left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)  \delta c_{o_2}(0) = \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) \left[C_1 - \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\right]\nonumber\\
+	&\qquad\frac{C_1}{\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} = \frac{\delta k\, C_{o2}}{j\omega\epsilon_0\lambda} \tanh{\left(\frac{l}{\lambda}\right)} - \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) \left[C_1 - \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\right]\nonumber\\
+\intertext{the above equation can be simplified to,}	
+	&\left[\frac{1}{\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)\right]C_1	= \frac{\delta k\,C_{o2}}{j\omega\epsilon_0\lambda} \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right) \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\nonumber
+%	&\left[\frac{1}{\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)\right]C_1	= \left[\frac{1}{\lambda} \tanh{\left(\frac{l}{\lambda}\right)}	 + \left(\frac{k^f k_H}{D_{o_{2,\textrm{eff}}}}\right)\right]\frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\nonumber
+\end{align}
+and finally the integration constant $C_1$ comes out to be, 	 	
+\begin{equation}
+	 C_1 = \frac{\delta k\, C_{o2}} {j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f	k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\label{eq:small_signal_C1_intermediate_diffusion_kinetics}
+\end{equation}
+By replacing the constant $C_1$ with the above relation, the integration constant $C_2$ becomes
+\begin{equation}
+	C_2 = - \frac{\delta k\, C_{o2}} {j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f	k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda}\right)}\label {eq:small_signal_C2_diffusion_kinetics}
+\end{equation} 
+%The compiled list of integration constants ($C_1$, $C_2$, $C_3$, $C_4$) are,
+%\begin{align}
+%	C_1 &= \frac{\delta k\, C_{o2}} {j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f	k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\nonumber\\
+%	C_2 &= - \frac{\delta k\, C_{o2}} {j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f	k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda}\right)}\nonumber\\
+%	C_3 &= - \frac{\delta k\,C_{o2}}{j\omega\epsilon_0}\nonumber\\
+%	C_4 &=  \frac{\delta k\,C_{o2}}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)}\label{eq:constants_for_small_signal_oxygen_concentration_solution_for_diffusion_kinetics}
+%\end{align}
+The small-signal diffusion coefficient after replacing the integration constants $C_1$ and $C_2$ in eqn.~\ref{eq:small_signal_oxygen_concentration_w_C3_C4_diffusion_kinetics} with eqns.~\ref{eq:small_signal_C1_intermediate_diffusion_kinetics} and~\ref{eq:small_signal_C2_diffusion_kinetics} respectively is,
+\begin{align}
+	\delta c_{o_2}(x) =   \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}& \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \cosh{\left(\frac{x}{\delta\lambda}\right)} -	\frac{\delta k\, C_{o2}} {j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f	k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda}\right)}	\sinh{\left(\frac{x}{\delta\lambda}\right)}	 \nonumber\\	
+	&\qquad\qquad\qquad\qquad\qquad\qquad\qquad - \frac{\delta k\,C_{o2}}{j\omega\epsilon_0} \cosh{\left(\frac{x}{\lambda}\right)} - \frac{\delta k\,C_{o2}}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)} \nonumber\displaybreak[0]
+\intertext{rearranging the above equation,}	
+	\delta c_{o_2}(x) =  \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}&\left[ \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \cosh{\left(\frac{x}{\delta\lambda}\right)} -  \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda}\right)}	\sinh{\left(\frac{x}{\delta\lambda}\right)}\right.\nonumber\\	&\qquad\qquad\qquad\qquad\qquad\qquad\qquad \left.- \cosh{\left(\frac{x}{\lambda}\right)} +  \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)}\right]\nonumber\displaybreak[0]\\
+\intertext{The final equation for the small-signal oxygen concentration ($\delta c_{o_2}(x)$) is,}
+    \delta c_{o_2}(x) =  \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}& \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\left\lbrace  \cosh{\left(\frac{x}{\delta\lambda}\right)} -  \tanh{\left(\frac{l}{\delta\lambda}\right)} \sinh{\left(\frac{x}{\delta\lambda}\right)}\right\rbrace\nonumber\\ 
+	&\qquad\qquad\qquad\qquad\qquad\qquad\qquad + \frac{\delta k\, C_{o2}}{j\omega\epsilon_0}\left\lbrace-\cosh{\left(\frac{x}{\lambda}\right)} +  \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)}\right\rbrace\label{eq:final_equation_for_small_signal_oxygen_concentration_under_diffusion_kinetics}\\
+\intertext{Finally, we compute the Faradaic current as a result of small-signal fluctuations by substituting eqns.~\ref{eq:final_equation_for_small_signal_oxygen_concentration_under_diffusion_kinetics} and~\ref{eq:dc_oxygen_concentration_diffusion_kinetics} in eqn.~\ref{eq:small_signal_faradaic_current_for_diffusion_kinetics}}
+	&\qquad\qquad\qquad\delta i_F = nFA\left[k\int_0^l\delta c_{o_2} (x)\;dx + \delta k\int_0^l c_{o_2} (x)\;dx\right]\nonumber\\
+	&\qquad\qquad\qquad\;\:\quad = \qquad\qquad\qquad\textrm{int}_1 \qquad \quad\,\, + \qquad\textrm{int}_2\nonumber
+\end{align}
+For simplicity, we can divide the long integral into two parts: int$_1$ and int$_2$, and solve them individually. We first consider int$_2$,
+%\begin{align}
+\begin{equation}
+	\textrm{int}_2 = nFA\delta kC_{o2}\int_0^l  \cosh{\left(\frac{x}{\lambda}\right)} \;dx - nFA\delta kC_{o2}\int_0^l\tanh{\left(\frac{l}{\lambda}\right)}\sinh{\left(\frac{x}{\lambda}\right)}\;dx\nonumber
+\end{equation}
+\begin{equation}
+	\textrm{int}_2 = nFA\lambda\delta kC_{o2}  \left[\sinh{\left(\frac{x}{\lambda}\right)}\right]_{x=0}^{x=l} - nFA\lambda\delta kC_{o2}\tanh{\left(\frac{l}{\lambda}\right)}\left[\cosh{\left(\frac{x}{\lambda}\right)}\right]_{x=0}^{x=l}\nonumber
+\end{equation}
+\begin{equation}
+	\textrm{int}_2 = nFA\lambda\delta kC_{o2} \tanh{\left(\frac{l}{\lambda}\right)}\label{eq:int_2_diffusion_kinetics_df}
+\end{equation}
+now we compute int$_1$
+\begin{align}
+	\textrm{int}_1 = \frac{nFkA\delta k\, C_{o2}}{j\omega\epsilon_0}& \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\left\lbrace  \int_0^l\cosh{\left(\frac{x}{\delta\lambda}\right)}\;dx - \int_0^l \tanh{\left(\frac{l}{\delta\lambda} \right)} \sinh{\left(\frac{x}{\delta\lambda}\right)}\;dx\right\rbrace\nonumber\\ &\qquad\qquad\qquad\qquad\, + \frac{nFkA\delta k\,C_{o2}}{j\omega\epsilon_0} \left\lbrace-\int_0^l\cosh{\left(\frac{x}{\lambda}\right)}\;dx + \int_0^l \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)}\;dx\right\rbrace\nonumber\displaybreak[0]
+\end{align}
+\begin{align}
+	\textrm{int}_1 = \frac{nFkA\delta k\, C_{o2}\delta\lambda}{j\omega\epsilon_0}& \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\left\lbrace\left[\sinh{\left(\frac{x}{\delta\lambda}\right)}\right]_0^l -  \left[\tanh{\left(\frac{l}{\delta\lambda} \right)}\cosh{\left(\frac{x}{\delta\lambda}\right)}\right]_0^l\right\rbrace\nonumber\\	&\qquad\qquad\qquad\qquad\, + \frac{nFkA\delta k\,C_{o2}}{j\omega\epsilon_0} \left\lbrace-\int_0^l\cosh{\left(\frac{x}{\lambda}\right)}\;dx + \int_0^l \tanh{\left(\frac{l}{\lambda}\right)} \sinh{\left(\frac{x}{\lambda}\right)}\;dx\right\rbrace\nonumber
+\end{align}
+\begin{align}
+	\textrm{int}_1 &= \frac{nFkA\delta k\, C_{o2}\delta\lambda}{j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\left\lbrace  \tanh{\left(\frac{l}{\delta\lambda} \right)}\right\rbrace\nonumber\\ 
+	&\qquad\qquad\qquad + \frac{nFkA\delta k\,C_{o2}\lambda}{j\omega\epsilon_0} \left\lbrace-\sinh{\left(\frac{l}{\lambda}\right)} +  \left[\tanh{\left(\frac{l}{\lambda}\right)} \cosh{\left(\frac{x}{\lambda}\right)}\right]_0^l\right\rbrace\nonumber
+\end{align}
+\begin{equation}
+	\textrm{int}_1 = nFkA\delta k\, C_{o2} \left\lbrace\frac{\delta\lambda}{j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\tanh{\left(\frac{l}{\delta\lambda} \right)} - \frac{\lambda}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)} \right\rbrace \label{eq:int_1_diffusion_kinetics_df}
+\end{equation}
+The resulting $\delta i_F$ becomes,
+%%	\frac{\delta i_F}{\delta k} =nFA\lambda C_{o2}& \tanh{\left(\frac{l}{\lambda}\right)} + \frac{nFAkp_{o_2} k^f \delta\lambda} {j\omega\epsilon_0D_{o_{2,\textrm{eff}}}\left[\frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}  \tanh{\left(\frac{l}{\delta\lambda} \right)} - \frac{nFAkC_{o2}\lambda}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)}\nonumber\\
+%%	\frac{\delta i_F}{\delta k} = & nFA \lambda C_{o2} \tanh{\left(\frac{l}{\lambda}\right)} \left[1- \frac{k}{j\omega\epsilon_0}\right] + \frac{nFAkp_{o_2} k^f \delta\lambda\tanh{\left(\frac{l}{\delta\lambda} \right)}} {j\omega\epsilon_0D_{o_{2,\textrm{eff}}}\left[\frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}\nonumber\\
+%%	 &\qquad\frac{\delta i_F}{\delta k} = i_F \left[\frac{j\omega\epsilon_0 -k}{j\omega\epsilon_0k} \right] + \frac{nFAkp_{o_2} k^f \delta\lambda\tanh{\left(\frac{l}{\delta\lambda} \right)}} {j\omega\epsilon_0D_{o_{2,\textrm{eff}}}\left[\frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \nonumber\\
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \tanh{\left(\frac{l}{\lambda}\right)}  nFkAC_{o2} + nFkA\, C_{o2}  \left\lbrace\frac{\delta\lambda}{j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda} \right)} - \frac{\lambda}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)} \right\rbrace \nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = nFkA\, C_{o2} \left\{\left[ \frac{\delta\lambda}{j\omega\epsilon_0} \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda} \right)} - \frac{\lambda}{j\omega\epsilon_0} \tanh{\left(\frac{l}{\lambda}\right)} \right] +\tanh{\left(\frac{l}{\lambda}\right)} \right\}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = nFkA\, C_{o2} \left\{\frac{1}{j\omega\epsilon_0} \left[\delta\lambda \frac{\left[\frac{1}{\lambda}  \tanh{\left(\frac{l}{\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda} \right)} - {\lambda} \tanh{\left(\frac{l}{\lambda}\right)} \right] +\tanh{\left(\frac{l}{\lambda}\right)} \right\}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = nFkA\,C_{o2}\tanh{\left(\frac{l}{\lambda}\right)} \left\{\frac{1}{j\omega\epsilon_0}\left[\delta\lambda \frac{\left[\frac{1}{\lambda}  + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right)\coth{\left(\frac{l}{\lambda}\right)} \right]}{\left[ \frac{1} {\delta\lambda} \tanh{\left(\frac{l}{\delta\lambda}\right)} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \right]} \tanh{\left(\frac{l}{\delta\lambda}\right)} - {\lambda} \right] + 1 \right\}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \frac{i_F}{j\omega\epsilon_0\lambda} \left\{ \left[\delta\lambda \frac{\left[\frac{1}{\lambda}  + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right)\coth{\left(\frac{l}{\lambda}\right)} \right]}{\left[ \frac{1} {\delta\lambda} + \left(\frac{k^f k_H} {D_{o_{2,\textrm{eff}}}}\right) \coth{\left(\frac{l}{\delta\lambda}\right)}\right]} - {\lambda} \right] + j\omega\epsilon_0 \right\}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \frac{i_F\,\delta\lambda^2}{j\omega\epsilon_0\lambda^2}	 \left\{\left[ \frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)} } {D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} - \frac{\lambda^2}{\delta\lambda^2} \right] + \frac{j\omega\lambda\epsilon_0}{\delta\lambda^2} \right\}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \frac{i_F\,\delta\lambda^2}{j\omega\epsilon_0\lambda^2}	 \left[\frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}	 {D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} - \frac{\lambda^2}{\delta\lambda^2} + \frac{j\omega\lambda\epsilon_0}{\delta\lambda^2} \right]\nonumber
+\end{equation}
+\begin{equation}
+\frac{\delta i_F}{\delta k} = \frac{i_F\,\delta\lambda^2}{j\omega\epsilon_0\lambda^2}	 \left[\frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}	 {D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} - \frac{\lambda^2}{\delta\lambda^2} + \frac{j\omega\lambda\epsilon_0}{\delta\lambda^2} \right]\nonumber
+\end{equation}
+substituting the values of $k$ and $\delta k$, we obtain,
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \frac{k\,i_F}{j\omega\epsilon_0 {\left(k+j\omega\epsilon_0\right)}}	\left[\frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)} } {D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)} } - \frac{\left(k+j\omega\epsilon_0\right)}{k} + \frac{j\omega\lambda\epsilon_0}{\delta\lambda^2} \right]\nonumber
+\end{equation}
+or another form that the equation can take is,
+\begin{equation}
+	\frac{\delta i_F}{\delta k} = \frac{i_F}{j\omega\epsilon_0}\left[ \frac{k}{\left(k+j\omega\epsilon_0\right)} \frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}{D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} + \frac{j\omega\epsilon_0}{\lambda} - 1 \right]\nonumber 
+\end{equation}
+inverting the above equation to obtain $\sfrac{\delta k}{\delta i_F}$
+\begin{equation}
+\frac{\delta k}{\delta i_F} = \frac{1}{i_F}
+\frac{j\omega\epsilon_0}{\left[
+	\frac{k}{\left(k+j\omega\epsilon_0\right)}
+	\frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}
+	{D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}}
+	+ \frac{j\omega\epsilon_0}{\lambda} - 1 
+	\right]}\label{eq:dk_di_diffusion_kinetics}
+\end{equation}
+we get $\sfrac{\delta\eta}{\delta k}$ by linearizing eqn.~\ref{eq:k_diffusion_kinetics}
+\begin{equation}
+	\frac{\delta k}{\delta\eta} = - \frac{nk_0a}{V_T}\cosh{\left(\frac{n}{2V_T}\eta\right)}\nonumber
+\end{equation}
+replacing $-k_0a$ with eqn.~\ref{eq:k_diffusion_kinetics}
+\begin{equation}
+	\frac{\delta k}{\delta\eta} = \frac{k}{2\sinh{\left(\frac{n}{2V_T}\eta\right)}} \frac{n}{V_T}\cosh{\left(\frac{n}{2V_T}\eta\right)}\nonumber
+\end{equation}
+\begin{equation}
+	\frac{\delta\eta}{\delta k} = \frac{2V_T}{nk}\tanh{\left(\frac{n}{2V_T}\eta\right)}\label{eq:dn_dk_diffusion_kinetics}
+\end{equation}
+The Faradaic impedance is given by,
+\begin{equation}
+	Z_F = \frac{\delta n}{\delta i_F} = \frac{\delta\eta}{\delta k}\frac{\delta k}{\delta i_F}
+\end{equation}
+substituting eqn.~\ref{eq:dk_di_diffusion_kinetics} and eqn.~\ref{eq:dn_dk_diffusion_kinetics} into the above equation,
+\begin{equation}
+	Z_F = \frac{2V_T}{nki_F} \frac{j\omega\epsilon_0\tanh{\left(\frac{n}{2V_T}\eta\right)}} {\left[\frac{k}{\left(k+j\omega\epsilon_0\right)} \frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}{D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} + \frac{j\omega\epsilon_0}{\lambda} - 1\right]}\nonumber
+\end{equation}
+\begin{equation}
+Z_F = \frac{Z_0j\omega\epsilon_0\tanh{\left(\frac{n}{2V_T}\eta\right)}} {\left[\frac{k}{\left(k+j\omega\epsilon_0\right)} \frac{D_{o_{2,\textrm{eff}}} + \lambda k^f k_H\coth{\left(\frac{l}{\lambda}\right)}}{D_{o_{2,\textrm{eff}}} + \delta\lambda k^f k_H \coth{\left(\frac{l}{\delta\lambda}\right)}} + \frac{j\omega\epsilon_0}{\lambda} - 1\right]}
+\end{equation} 
+where $Z_0$ is,
+\begin{equation}
+Z_0 = \frac{2V_T}{nki_F} 
+\end{equation}
+
+
+\end{document}

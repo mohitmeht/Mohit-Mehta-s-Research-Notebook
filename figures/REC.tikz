@@ -1,0 +1,9 @@
+\begin{tikzpicture}[scale=2]
+\draw (0,0) -- (15,0);
+\draw (0,-0.3) node[below] {-3.045 V}  -- (0,0.3) node[above] {Li};
+\draw (7,-0.3) node[below=5mm] {0.00 V}  -- (7,0.3) node[above=5mm] {SHE};
+\draw (8.1,-0.3) node[below] {0.140 V}-- (8.1,0.3) node[above] {Hg/HgO};
+\draw (9.1,-0.3) node[below=5mm] {0.197 V} -- (9.1,0.3) node[above=5mm] {Ag/AgCl};
+\draw (10,-0.3) node[below] {0.241 V} -- (10,0.3) node[above] {SCE};
+\draw (13.8,-0.3) node[below] {0.680 V}-- (13.8,0.3) node[above] {Hg/Hg$_2$SO$_4$};
+\end{tikzpicture}

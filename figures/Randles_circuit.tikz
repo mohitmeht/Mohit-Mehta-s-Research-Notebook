@@ -1,0 +1,8 @@
+\begin{circuitikz}[scale=1]
+\draw
+node[ocirc] (A) at (0,0){}
+(A) to [R=$R_s$,-*] (2,0) -- (2,0.75)
+    to [R=$R_p$] (4,0.75) -- (4,0)
+(2,0) -- (2,-0.75) to [C=CPE] (4,-0.75) -- (4,0)
+	to  [short,*-o] (5,0) ;
+\end{circuitikz}

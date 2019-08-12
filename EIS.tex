@@ -1,0 +1,41 @@
+\documentclass[Notes.tex]{subfiles}
+\begin{document}
+	
+	
+\chapter{EIS}
+
+\section{History of EIS along with required conditions}
+The full impedance spectra was not made until aprroximately 1970 with the advent of reliable potentiostat was easily available. The first technique which also became a de facto standard was Frequency Responce Analyzer (FRA) using single sine method, in which ac wave of 5-15 mV of a given frequency riding on a dc potential at desired frequencies. Important requirements of the system before EIS can be performed on it:
+\begin{enumerate}
+	\item Stable
+	\item Reversible 
+	\item System must be at equilibrium
+\end{enumerate}
+In 1985, Stoynov et al.~\cite{Stoynov1985} conducted an impedance study on non-stationary systems for the first time. Then in 1989, Chenebault et al.~\cite{Chenebault1989} measured the impedance of a Li metal electrode in \ce{LiAlCl4}/\ce{SOCl2} electrolyte while the system was under charging. Dynamic Electrochemical Impedance Spectroscopy (DEIS) was first applied to a lithium metal battery by Osaka et al., in 1994 and then much later it was applied to Li-ion battery in 2004~\cite{Itagaki2004,Itagaki2005}. DEIS has also been used in corrosion science and in fuel cell technology.
+\section{Different EIS techniques}Stoynov \& Savova-Stoynov published mathematical expressions to extract instantaneous impedance values for nonstationary systems but it suffered from long acquisition time$^{\cite{Stoynov1985}}$.
+EIS was also performed by applying noise signal and then demodulating the received signal. Fourier transform was also used it was known as first-generation Fourier transform EIS (1-FTEIS) by Smith$^{\cite{Smith1976}}$ and others. Rosvall \& Sharp used wavelet which consisted of 20 sinusoidal waves of 20 frequencies between 150 Hz and 200kHz riding on staircase voltammetry latter part of staircase$^{\cite{Rosvall2000}}$. Darowicki et al. performed cyclic voltammetry with EIS. They did this by overlapping wavelet of 7 signals on a slow ramp signal and they called this method as dynamic electrochemical impedance spectroscopy. This was used with lead acid batteries. 
+
+\section{More EIS Background}
+\paragraph*{June 18, 2014}
+The diffusion term represented using the finite length Warburg impedance requires large number of RC circuits and it is balance between accuracy and performance (they implemented on a microcontroller), they suggested using 5 RC circuits in series to represent diffusion\cite{Fleischer2014}
+The authors suggested the equation for charge transfer resistance for Li-ion batteries with polymer electrolytes.
+\begin{align}
+R_{ct}=R_\infty-R_{\textrm{mid}}            
+\end{align}
+Electrical vehicles can use battery packs with number of individual battery cells ranging from (20...200)\cite{Fleischer2014}.
+If the symmetry factor $\alpha = 0,1$, the reactions can be thought to be irreversible. He also said that the oxidation number of reaction ions (n) can be non-integer. The paper was a theoretical paper with ECM modeling of supercapacitor and Li-ion\cite{Buller2005}.
+\paragraph*{February 17, 2014}
+The paper by Bonnefont and Argoul (Bazant) talks about AC current modulation on DC current~\cite{Bonnefont2000}. 
+
+\section{Low frequency loop}
+There is no consensus on the reason for the low frequency loop often observed on the impedance spectra on fuel cells operating with air.
+The cited possible causes for the low frequency loop are diffusion of water through the "active layers"~\cite{Freire2001,Wagner1998} or though the membrane~\cite{Paganin1998}, oxygen diffusion through the "backing"~\cite{Springer1996}, gas flow rate through the cathode~\cite{Ciureanu2001}, and oxygen diffusion in nitrogen~\cite{Boillot2006}
+
+\section{Applications of EIS}
+\subsection{Calculation of Ionic Conductivity}
+Hamon suggested a method to compute ionic conductivity using equivalent circuit modeling. Here the equation and an example is presented.
+\begin{align}
+\sigma= \frac{e}{R_{el}\times A}
+\end{align}
+where $e$ is the film thickness, $A$ is the area of the metal contact, and $R_{el}$ is the film thickness determined by the model.
+\end{document}
