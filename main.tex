@@ -4,13 +4,28 @@
 \usepackage[T1]{fontenc}
 \usepackage{times}
 \usepackage{graphicx,tikz,amsmath,caption,enumitem,subfig,hyperref,xfrac,color,tikzscale,circuitikz}
-\usepackage[version-1-compatibility]{siunitx}
-\usepackage[version=3]{mhchem}
+\usepackage{mhchem}
 \usepackage[makeroom]{cancel}
 \usepackage{subfiles}
 \setcounter{tocdepth}{3}
 \usepackage{siunitx}
 \PassOptionsToPackage{version=3}{mhchem}
+\DeclareSIUnit\Molar{\textsc{m}}
+\usepackage{cancel}
+\usepackage[hyperindex=true,
+	 bookmarks=true,
+            colorlinks=false,
+            pdfborder=0,
+            pagebackref=false,
+            citecolor=blue,
+            plainpages=false,
+            pdfpagelabels,
+            pagebackref=true,
+            hyperfootnotes=false]{hyperref}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usetikzlibrary{plotmarks}
+\DeclareSIUnit\torr{Torr}
 
 
 %\graphicspath{ {G:/Dropbox/work/Phd/Data/Xujie Chen_data_on_Li-air/EIS paper/Raw Plots/735457/} }
@@ -1784,8 +1799,7 @@ This section list most common DFT options that are found in nwchem and other DFT
 
 \section{Notes on Solid-State NMR}
 
-A Hamiltonian describing the interaction of a nuclear spin $\mathbf{I}$
-with a field $\mathbf{B}$ is 
+A Hamiltonian describing the interaction of a nuclear spin $\mathbf{I}$ with a field $\mathbf{B}$ is 
 \[
 \hat{H}=-\hat{\mu}\cdot B=-\gamma\hbar\mathbf{\hat{I}}\cdot\mathbf{B}
 \]
@@ -1793,35 +1807,23 @@ Under the oscillating magnetic field,
 \[
 B_{total}\left(t\right)=\breve{i}B_{1}\cos\left(\omega_{rf}t\right)+\breve{k}B_{0}
 \]
-where $\breve{i}$ and $\breve{k}$ are unit vectors, the notation
-is different because the ``hat'' notation is used for Quantum Mechanics
-operator.
+where $\breve{i}$ and $\breve{k}$ are unit vectors, the notation is different because the ``hat'' notation is used for Quantum Mechanics operator.
 
-The flip angle is the angle by which the magnetization turns when
-pulse field ($B_{1}$) is applied 
-\[
+The flip angle is the angle by which the magnetization turns when pulse field ($B_{1}$) is applied \[
 \phi_{rf}=\omega_{1}\tau_{rf}=\gamma B_{1}\tau_{rf}
 \]
-where $\tau_{rf}$ is the pulse width (assuming it is square wave,
-similar to PWM; the $rf$ denotes rotating frame), $\gamma$ is the
-magnetogyric ratio (a constant for a given type of nucleus). The spin
-operators allow all the possible spin properties of a nucleus 
+where $\tau_{rf}$ is the pulse width (assuming it is square wave, similar to PWM; the $rf$ denotes rotating frame), $\gamma$ is the magnetogyric ratio (a constant for a given type of nucleus). The spin operators allow all the possible spin properties of a nucleus 
 \[
 \hat{I}^{2}=\hat{I}_{x}^{2}+\hat{I}_{y}^{2}+\hat{I}_{z}^{2}
 \]
-where $I_{x}$, $I_{y}$, and $I_{z}$ are the components of the cartesian
-co-ordinates. Related to nuclear spin. Example is taken from the book:
-for a spin with $I=\frac{1}{2}$, $m=\pm\frac{1}{2}$ so there are
+where $I_{x}$, $I_{y}$, and $I_{z}$ are the components of the cartesian co-ordinates. Related to nuclear spin. Example is taken from the book: for a spin with $I=\frac{1}{2}$, $m=\pm\frac{1}{2}$ so there are
 two possible eigenstates with energies $E_{\frac{1}{2},\pm\frac{1}{2}}=\mp\frac{1}{2}\gamma\hbar B_{0}$. 
 
-The chemical shift due to shielding interaction (spectral frequency),
-is 
+The chemical shift due to shielding interaction (spectral frequency), is 
 \[
 \omega=-\omega_{0}b_{0}^{R}\sigma^{R}b_{0}^{R}
 \]
-where $b_{0}^{R}=\left(\sin\theta_{R}\cos\omega_{R}t,\sin\theta_{R}\sin\omega_{R}t,\cos\theta_{R}\right)$
-is the unit vector in the direction of $B_{0}$ in the rotor axis
-frame R. The spinning side band pattern can be predicted using 
+where $b_{0}^{R}=\left(\sin\theta_{R}\cos\omega_{R}t,\sin\theta_{R}\sin\omega_{R}t,\cos\theta_{R}\right)$is the unit vector in the direction of $B_{0}$ in the rotor axis frame R. The spinning side band pattern can be predicted using 
 \begin{multline*}
 \omega=-\omega_{0}\left\{ \sigma_{iso}+\left[A_{1}\cos\left(\omega_{R}t+\gamma\right)+B_{1}\sin\left(\omega_{R}t+\gamma\right)\right]\right.\\
 \left.+\left[A_{2}\cos\left(2\omega_{R}t+2\gamma\right)+B_{2}\sin\left(2\omega_{R}t+2\gamma\right)\right]\right\} 
@@ -1834,18 +1836,12 @@ A_{2}= & \frac{1}{3}\left[\left(\cos^{2}\beta\cos^{2}\alpha-\sin^{2}\alpha\right
 & +\left.\left(\cos^{2}\beta\sin^{2}\alpha-\cos^{2}\alpha\right)\left(\sigma_{yy}^{PAF}-\sigma_{zz}^{PAF}\right)\right]\\
 B_{2}= & -\frac{2}{3}\sin\alpha\cos\alpha\cos\beta\left(\sigma_{xx}^{PAF}-\sigma_{yy}^{PAF}\right)
 \end{align*}
-where $\sigma_{iso}$ is the isotropic term and is independent of
-the speed of rotation at magic-angle $54.74^{\circ}$; whereas the
-location of the side bands are proportional to spinning rate. The
-free induction delay (FID) $g\left(t\right)$ in an NMR experiment
-is 
+where $\sigma_{iso}$ is the isotropic term and is independent of the speed of rotation at magic-angle $54.74^{\circ}$; whereas the location of the side bands are proportional to spinning rate. The
+free induction delay (FID) $g\left(t\right)$ in an NMR experiment is 
 \[
 g\left(t\right)=\frac{1}{8\pi^{2}}\int_{0}^{2\pi}\int_{0}^{\pi}\int_{0}^{2\pi}\exp\left(i\int_{0}^{t}\omega\left(\alpha,\beta,\gamma;t\right)dt\right)\sin\beta d\alpha d\beta d\gamma
 \]
-
-
 \subsection{Some equations for REDOR-NMR}
-
 Dipolar decoupling: 
 \[
 H=d\left(t\right)S_{z}I_{z}
@@ -1859,17 +1855,13 @@ the dipolar coupling
 \[
 d=\frac{\mu_{0}\gamma_{s}\gamma_{I}\hbar}{4\pi r^{3}}
 \]
-where $\mu_{0}$ is the permeability of free space, $\gamma_{S}$
-and $\gamma_{I}$ are the magnetogyric ratios of the coupled spins,
-and $r$ is the internuclear separation. 
+where $\mu_{0}$ is the permeability of free space, $\gamma_{S}$ and $\gamma_{I}$ are the magnetogyric ratios of the coupled spins, and $r$ is the internuclear separation. 
 
-The S-spin transverse magnetization precesses (like a wobbling top,
-whose axis of rotation is changing continuously) at a rate
+The S-spin transverse magnetization precesses (like a wobbling top, whose axis of rotation is changing continuously) at a rate
 \[
 \omega_{S}=-\gamma_{S}B_{L}
 \]
-in the rotating frame defined by the Zeeman interaction. Apply $\pi$
-pulse, the Hamiltonian becomes 
+in the rotating frame defined by the Zeeman interaction. Apply $\pi$ pulse, the Hamiltonian becomes 
 \[
 H=\Theta S_{Z}I_{Z}
 \]
@@ -1898,53 +1890,27 @@ where
 
 \section{Li-diffusion calculation in LTO based Li-ion batteries}
 
-The authors used the Sand's equation for estimating the value of the
-diffusion of Li-ion at different charge and discharge currents. The
-Sand equation is given using, 
-\[
+The authors used the Sand's equation for estimating the value of the diffusion of Li-ion at different charge and discharge currents. The Sand equation is given using,  \[
 It^{\frac{1}{2}}=\frac{nFS\Delta C\left(\pi D_{app}\right)^{\frac{1}{2}}}{2}
 \]
-The values of $D_{app}$ predicted by the authors are: $1.3\times10^{-11}cm^{2}/s$
-(insertion, charging) and $5\times10^{-11}cm^{2}/s$ (extraction,
-discharging). The parameters used by the authors are: Spherical particle
-with radius $0.45\mu m$, thickness $4.5\mu m$. Surface area of the
-spherical particle is $0.64\mu m^{2}$. The parameters I have chosen
-for comparison are: i(mA/g) = $3000$, $t^{-\frac{1}{2}}\left(s^{-\frac{1}{2}}\right)=0.08$.
-\[
+The values of $D_{app}$ predicted by the authors are: \SI{1.3e-11}{\centi\meter\squared\per\second} (insertion, charging) and $5\times10^{-11}cm^{2}/s$ (extraction, discharging). The parameters used by the authors are: Spherical particle with radius $0.45\mu m$, thickness $4.5\mu m$. Surface area of the spherical particle is $0.64\mu m^{2}$. The parameters I have chosen for comparison are: i(mA/g) = $3000$, $t^{-\frac{1}{2}}\left(s^{-\frac{1}{2}}\right)=0.08$. \[
 It^{\frac{1}{2}}=\frac{nFS\Delta C\left(\pi D_{app}\right)^{\frac{1}{2}}}{2}.
 \]
-The $D_{app}$ values differ slightly from LTO-rock-salt phase ($1\times10^{-12}$
-cm$^{2}$/s) to LTO-spinel phase ($1.6\times10^{-11}$ cm$^{2}$/s).
-The activation energy for diffusion process in LTO-spinel phase is
-39 kJ/mol and in LTO-rock-salt phase is 23 kJ/mol.
-
+The $D_{app}$ values differ slightly from LTO-rock-salt phase ($1\times10^{-12}$ cm$^{2}$/s) to LTO-spinel phase ($1.6\times10^{-11}$ cm$^{2}$/s). The activation energy for diffusion process in LTO-spinel phase is 39 kJ/mol and in LTO-rock-salt phase is 23 kJ/mol.
 \section{Crystal Structure}
-
-In this section, I will discuss (at the moment just collect the information
-regarding the crystal structure) about the basics of crystal structure
-and technique of how to represent and calculate different dimensions
-of a crystal lattice. The lattice structure normally encountered in
-chemistry is also known as Bravais lattices. There are fourteen different
-Bravais lattices configurations depending upon the distances between
-molecules in x-axis, y-axis, and z-axis in the Cartisian coordinate
-system; in case of Bravais lattice, x-y-z system is sometimes replaced
-with a-b-c axis system. They are separated into seven different catagories:
-\begin{enumerate}
-	\item Cubic
-	\item Hexagonal
-	\item Tetragonal
-	\item Orthorhombic
-	\item Rhombohedral
-	\item Monoclinic
-	\item Triclinic
-\end{enumerate}
-
+In this section, I will discuss (at the moment just collect the information regarding the crystal structure) about the basics of crystal structure and technique of how to represent and calculate different dimensions of a crystal lattice. The lattice structure normally encountered in chemistry is also known as Bravais lattices. There are fourteen different Bravais lattices configurations depending upon the distances between molecules in x-axis, y-axis, and z-axis in the Cartisian coordinate system; in case of Bravais lattice, x-y-z system is sometimes replaced with a-b-c axis system. They are separated into seven different categories:
+\begin{itemize}
+\item Cubic
+\item Hexagonal
+\item Tetragonal
+\item Orthorhombic
+\item Rhombohedral
+\item Monoclinic
+\item Triclinic
+\end{itemize}
 \subsection{Miller indices}
 
-Definition: Miller indices are the label used to distinguish one set
-of parallel planes from another. It is a set of three numbers $hkl$
-that defines a set of parallel planes in a crystal. The common technique
-to determine the Miller indices is as follows:
+Definition: Miller indices are the label used to distinguish one set of parallel planes from another. It is a set of three numbers $hkl$ that defines a set of parallel planes in a crystal. The common technique to determine the Miller indices is as follows: 
 \begin{enumerate}
 	\item Choose an origin;
 	\item Find out the intercept that the first such plane makes with the three
@@ -1952,9 +1918,7 @@ to determine the Miller indices is as follows:
 	\item Obtain their reciprocals;
 	\item Eliminate fractions.
 \end{enumerate}
-The major advantage of the Miller indices is that it permits to ex{[}ress
-interplanar distance of a set of $hkl$ planes in terms of lattice
-parameters $a$, $b$, $c$, $\alpha$, $\beta$, $\gamma$. For a
+The major advantage of the Miller indices is that it permits to express inter-planar distance of a set of $hkl$ planes in terms of lattice parameters $a$, $b$, $c$, $\alpha$, $\beta$, $\gamma$. For a
 cubic crystal 
 \[
 d_{hkl}=\frac{a}{\sqrt{h^{2}+k^{2}+l^{2}}}
@@ -1962,82 +1926,31 @@ d_{hkl}=\frac{a}{\sqrt{h^{2}+k^{2}+l^{2}}}
 
 
 \subsection{Spinel Structure}
-
-The unit cell of a spinel structure is a supercube that is formed
-by eight cubes. This structure has $8\times4=32$ anions and it has
-64 tetrahedral voids and 32 octahedral voids. In the spinel structure
-only 8 tetrahedral voids and 16 octahedral voids are occupied by the
-cations in a ordered fashion.
-
+The unit cell of a spinel structure is a supercube that is formed by eight cubes. This structure has $8\times4=32$ anions and it has 64 tetrahedral voids and 32 octahedral voids. In the spinel structure only 8 tetrahedral voids and 16 octahedral voids are occupied by the cations in a ordered fashion.
 \subsection{Perovskite Structure}
-
-Definition: The Perovskite Structure is based on the ReO3 structure
-in which the oxygen atoms are at the 12 edge centers of a cube formed
-by the rhenium atoms at all the corners. If the corners are occupied
-by the small cations and the center of the cube is occupied by a large
-cation, a pervoskite structure results.
-
+Definition: The Perovskite Structure is based on the ReO3 structure in which the oxygen atoms are at the 12 edge centers of a cube formed by the rhenium atoms at all the corners. If the corners are occupied by the small cations and the center of the cube is occupied by a large cation, a pervoskite structure results.
 \section{Yan-Yan Hu's REDOR curve recreation}
-
-REDOR curve, also referred to as dephasing curve, which is calculated
-using the second moment - considering only the distance between two
-atoms - of the Carbon atom that located at the center of the b-c grid
-at a particular distance above the topmost Phosphate layer. The REDOR
-curve generated using randomly placed phosphate atoms is similar -
-drops to about 20\% after 100 ms - to the postions of the phosphate
-atoms in Calcium Hypoxyapatite taken from the repository (id: 4317043).
-However the article that is being reproduced shows that the dephasing
-curve drops to 20\% after 10 milliseconds.
-
+REDOR curve, also referred to as dephasing curve, which is calculated using the second moment - considering only the distance between two atoms - of the Carbon atom that located at the center of the b-c grid at a particular distance above the topmost Phosphate layer. The REDOR curve generated using randomly placed phosphate atoms is similar -
+drops to about 20\% after 100 ms - to the postions of the phosphate atoms in Calcium Hypoxyapatite taken from the repository (id: 4317043). However the article that is being reproduced shows that the dephasing curve drops to 20\% after 10 milliseconds. 
 \section{Variation in discharge curve experiments due to cathode microstructure
 	using statistics}
+The variation in the cathode microstructure (which occurs due to cathode manufacturing techniques) can cause large variation in the total specific capacity as measured in experiments; this can be considered as one of the factors to contribute variation, the variation might be a contribution of environment conditions, testing conditions, manufacturing technique, instrumentation error, etc. 
 
-The variation in the cathode microstructure (which occurs due to cathode
-manufacturing techniques) can cause large variation in the total specific
-capacity as measured in experiments; this can be considered as one
-of the factors to contribute variation, the variation might be a contribution
-of environment conditions, testing conditions, manufacturing technique,
-instrumentation error, etc. 
-
-Here we apply central limit theorm and Monte Carlo technique to simulation
-the the variations. We first start with proving that the central limit
-therom applies to scaling of number of mesh sizes. There are two methods
-of looking at it: 1) Simulate at 100 mesh points with porosity as
-a random variable with the normal distribution function with variation
-($\sigma_{0}$) and mean ($\mu_{0}$), then simulate with large number
-of mesh points, ex. 500 with porosity that has a variation of $\sigma_{0}\times\sqrt{N}$,
-where $N$ is the change in number of mesh points, which in this case
-is $N=500/100=5$, with the same mean, $\mu_{0}$. 2) The other technique
-is, increasing the number of mesh points decreases the length of the
-uniform mesh; the number of small variation cathodes that can occupy
-the a single mesh is the value of $N$. Let say, the cathode is generated
-of length-$100nm$, porosity ($\mu_{1}$ and $\sigma_{1}$); the length
-of the cathode being simulated is $200\mu m$, the number of mesh
-points is $100$; the length of a single mesh point is $2\mu m$,
-the number of generated cathode that can fit in a single mesh point
-is $N=\frac{2\mu m}{100nm}=20.$ 
+Here we apply central limit theorm and Monte Carlo technique to simulation the the variations. We first start with proving that the central limit therom applies to scaling of number of mesh sizes. There are two methods of looking at it: 1) Simulate at 100 mesh points with porosity as a random variable with the normal distribution function with variation
+($\sigma_{0}$) and mean ($\mu_{0}$), then simulate with large number of mesh points, ex. 500 with porosity that has a variation of $\sigma_{0}\times\sqrt{N}$, where $N$ is the change in number of mesh points, which in this case is $N=500/100=5$, with the same mean, $\mu_{0}$. 2) The other technique is, increasing the number of mesh points decreases the length of the uniform mesh; the number of small variation cathodes that can occupy the a single mesh is the value of $N$. Let say, the cathode is generated of length-$100nm$, porosity ($\mu_{1}$ and $\sigma_{1}$); the length
+of the cathode being simulated is $200\mu m$, the number of mesh points is $100$; the length of a single mesh point is $2\mu m$, the number of generated cathode that can fit in a single mesh point is $N=\frac{2\mu m}{100nm}=20.$ 
 
 \subsection{Simulation results using Dr. Andrei method (method 1)}
 
 \subsubsection{N =1}
-
-The simulation parameters were $\sigma=0.0075$ (1\%) and $\mu=0.75$,
-and specific area = $5\times10^{5}cm^{-1}$. The results of the simulation
-are: the statistics for the maximum specific capacity due to varying
-porosity are $\mu=1375.74108633951$ and $\sigma=2.491176482365$.
+The simulation parameters were $\sigma=0.0075$ (1\%) and $\mu=0.75$, and specific area = $5\times10^{5}cm^{-1}$. The results of the simulation are: the statistics for the maximum specific capacity due to varying porosity are $\mu=1375.74108633951$ and $\sigma=2.491176482365$.
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/Petru_N_1_012016}
 	\caption{Variation of the specific area with $N = 1$}
 \end{figure}
-
 \subsubsection{N=5}
-
-The simulation parameters were $\sigma=0.0075\times\sqrt{5}=0.01677$
-(2.236\%) and $\mu=0.75$, and specific area = $5\times10^{5}cm^{-1}$.
-The results of the simulation are: the statistics for the maximum
-specific capacity due to varying porosity are $\mu=1373.63313237629$
-and $\sigma=3.958814693807$.
+The simulation parameters were $\sigma=0.0075\times\sqrt{5}=0.01677$ (2.236\%) and $\mu=0.75$, and specific area = $5\times10^{5}cm^{-1}$. The results of the simulation are: the statistics for the maximum specific capacity due to varying porosity are $\mu=1373.63313237629$ and $\sigma=3.958814693807$.
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/Petru_N_5_012016}
@@ -2045,21 +1958,13 @@ and $\sigma=3.958814693807$.
 \end{figure}
 
 \subsubsection{N=10}
-
-The simulation parameters were $\sigma=0.0075\times\sqrt{10}=0.023717$
-(3.162\%) and $\mu=0.75$, and specific area = $5\times10^{5}cm^{-1}$.
-The results of the simulation are: the statistics for the maximum
-specific capacity due to varying porosity are $\mu=1369.73509056756$
-and $\sigma=3.4464363764787$.
+The simulation parameters were $\sigma=0.0075\times\sqrt{10}=0.023717$ (3.162\%) and $\mu=0.75$, and specific area = $5\times10^{5}cm^{-1}$. The results of the simulation are: the statistics for the maximum specific capacity due to varying porosity are $\mu=1369.73509056756$and $\sigma=3.4464363764787$.
 \begin{figure}[htb]
 	\centering
 	\includegraphics[width=0.5\textwidth]{figures/Petru_N_10_012016}
 	\caption{Variation of the specific area with $N = 10$}
 \end{figure}
-
-In this test we neglect that the specific area is affected by varying
-porosity; as will be shown later, converting SC to a random variable
-increases the total variation significantly. 
+In this test we neglect that the specific area is affected by varying porosity; as will be shown later, converting SC to a random variable increases the total variation significantly. 
 
 \subsubsection{Comparing N=1, N=5, N=10}
 \begin{figure}[htb]
@@ -2067,7 +1972,6 @@ increases the total variation significantly.
 	\includegraphics[width=0.5\textwidth]{figures/Petru_N_1_5_10_012016}
 	\caption{Variation of the specific area with $N = 10$}
 \end{figure}
-
 \chapter{AMES ARC Li-air battery modeling notes}
 \section{Learning to implement Petru's equations on Comsol} Relating equations solved by Sahapatsombut (which is implemented in Comsol --by default) to Randflux or Petru's theory. The table lists relationships for cylindrical pores of a single pore size.
 Specific area ($a$) is a ratio of accessible surface area to total volume. Assuming cathode made up solid cylindrical fibers,  pores are obtained from empty spaces in these cylindrical fibers. A simple derivation for specific area and porosity ($\epsilon$, it is also referred to as volume fraction) is shown for cathode with a cylindrical morphology.  
@@ -2161,6 +2065,21 @@ WiSE from Bazant talks about how electrostatic field and the electorstatic energ
 Lithium activity changes inside electrodes. The anode and cathode potentials shift in a SIS, due to change in activity potentials as predicted by Nernst equation.
 \section{Battery Prognostics (Future project)}
 Lithium platting in Li-ion is possible at high C rates and low temperature. 
+NDE methods being considered for prognostic purposes are: 
+\begin{enumerate}
+\item Ultra-Sonic evaluations
+\item Electrochemical Impedance Spectroscopy
+\item Temperature measurement
+\item Strain gauge
+\item X-ray
+\end{enumerate}
+
+Literature shows relationships between a number of factors that is already been studied are:
+\begin{itemize}
+\item Dendrite growth rate and dendrite initiation time depends on \ce{c_{Li}}  and \ce{j_{dis}} 
+\end{itemize}
+
+
 \subsection{How to reproduce dendrites predictable}
 \subsection{How to model NDE methods in COMSOL}
 \subsection{How to model dendrites (non-fractal method)}
