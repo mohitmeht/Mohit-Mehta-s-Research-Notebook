@@ -10,7 +10,7 @@
 \setcounter{tocdepth}{3}
 \usepackage{siunitx}
 \PassOptionsToPackage{version=3}{mhchem}
-\DeclareSIUnit\Molar{\textsc{m}}
+\DeclareSIUnit\Molar{\textsc{M}}
 \usepackage{cancel}
 \usepackage[hyperindex=true,
 	 bookmarks=true,
@@ -506,7 +506,7 @@ First let me talk about important deductions
 \end{enumerate} 
 Comparison at $I_{\textrm{dis}}=0.1\,\textrm{mA}/\textrm{cm}^2$. First we will look at the values used for the analytical model
 \begin{itemize}
-\item $I_{dis}=0.1mA/cm^2$
+\item $I_{dis}=\SI{0.1}{\milli\ampere\per\centi\meter\squared}$
 \item $k_0$ does not matter
 \item $n=2$
 \item $D_o=10.5\times 10^{-6}$ cm$^2$/s
@@ -1667,7 +1667,7 @@ O & 16\\
 \chapter{Li-air suggestions/models/issues}
 Here, I just list all the conclusions and models built by us or other people, once I have enough variation we can form groups and sub areas for ease.
 
-\section{Cathode utilization} 
+\section{Cathode utilization}
 \textbf{Wang and Cho} used \textbf{Finite Volume Modeling} to simulate oxygen penetration inside Li-air batteries, what they found was that beyond 0.2 mA/cm$^2$ the oxygen is could not reach the inner cathode. At the end of the discharge (at current density of 0.2 mA/cm$^2$), ORR was active only near the exposed surface and inactive for much of the cathode. The insoluble discharge product is distributed non uniformly, favoring the cathode/air interface. The oxygen profile was analyzed using Damk\"{o}hler number (refer section~\ref{Damkohler Number} for further information).
 
 \section{Discharge Products}
@@ -1679,7 +1679,7 @@ Kan-Hao Xue et al. suggested that in Li-air batteries oxygen reduction takes pla
 The EIS model considering change in morphology of Li$_2$O$_2$ for different discharge currents. We adopt the discontinuous discharge layer model suggested by Jung et al.~\cite{Jung2015} for considering the lithium peroxide particles and use our previously developed model for film deposition. The change in type of the discharge product depends on dc discharge current (references) and presence of water in the electrolyte (references). 
 The thickness of the deposit layer is given by,
 \begin{equation}
-t_{Li_2O_2}  = \left(\sqrt[3]{\frac{\epsilon_{DL}}{(1-\epsilon)} + 1}\right)r_{cb}
+t_{\ce{Li_2O_2}}  = \left(\sqrt[3]{\frac{\epsilon_{DL}}{(1-\epsilon)} + 1}\right)r_{cb}
 \end{equation}
 where $t$ is the thickness of the deposit layer, $\epsilon_{DL}$ is the volume fraction of the Li$_2$O$_2$ deposit layer, $\epsilon$ volume fraction of void space filled with liquid electrolyte, $r_{cb}$ is the radius of carbon black. The volume fraction of deposit layer is given by,
 \begin{equation}
@@ -1708,7 +1708,7 @@ Carbon Mass & Reference\\
 %\include{Different_boundary_conditions}
 
 \newpage
-\chapter{List of professors or labs to contact for post doc}
+\chapter{List of professors or labs}
 \begin{enumerate}
 \item Martin Bazant
 \item Gerbrand Ceder
@@ -1722,8 +1722,8 @@ Carbon Mass & Reference\\
 \item Asta Research group (University of California, Berkley)
 \item Mihai Anitescu (ANL)
 \item Wolverton Research Group
-\item Computational Materials Group (Dane Morgan)-[APPLY AS SOON AS POSSIBLE]
-\item Maria K.Y. Chan (ANL) [Apply as soon as possible]
+\item Computational Materials Group (Dane Morgan)
+\item Maria K.Y. Chan (ANL)
 \end{enumerate}
 
 \newpage
@@ -2060,10 +2060,14 @@ Some of the sample calculations are done below to compute the voltage drop
 \end{figure}
 \subsection{Carbon fiber electrode approximation}
 A single carbon fiber is assumed to be a cylinder of radius $r_{0,avg}$ and the reaction product is deposited on the solid cylinder. The radii in a carbon fiber electrode increase with deposition, while, the radii in a carbon electrode decreases.
+
+
 \section{Solvent-in-Salt Electrolyte}
 WiSE from Bazant talks about how electrostatic field and the electorstatic energy of the system is different from IL. 
 Lithium activity changes inside electrodes. The anode and cathode potentials shift in a SIS, due to change in activity potentials as predicted by Nernst equation.
-\section{Battery Prognostics (Future project)}
+
+
+\section{Prognostics on Lithium Dendrites using Machine Learning and Non-Destructive Evaluation Techniques}
 Lithium platting in Li-ion is possible at high C rates and low temperature. 
 NDE methods being considered for prognostic purposes are: 
 \begin{enumerate}
@@ -2076,10 +2080,125 @@ NDE methods being considered for prognostic purposes are:
 
 Literature shows relationships between a number of factors that is already been studied are:
 \begin{itemize}
-\item Dendrite growth rate and dendrite initiation time depends on \ce{c_{Li}}  and \ce{j_{dis}} 
+\item Dendrite growth rate and dendrite initiation time depends on \ce{c_{Li}}  and \ce{j_{dis}} \cite{Nishikawa2010}
+\item Effect of temperature on dendrite growth \cite{Park2008}
+\item Effect of modifying lithium surface to suppress dendrite growth
+\item Brissot~\cite{Brissot1999} discussed the onset of dendrites as a function of \ce{j_{dis}} and the dendrite initiation time
+\item Monroe developed an mathematical model to quantify tip height and growth velocity
+\item Dendrite growth depends on the charge current density and the "limiting" current density~\cite{Akolkar2013}
+\item Rohan~\cite{Akolkar2013} showed that the dendrite grows at \SI{0.02}{\micro\meter\per\second} when $\ce{j_{dis}} = \SI{10}{\milli\ampere\per\centi\meter\squared}$
+\item The lithium ion concentration at the surface reduces to 30\% of the initial concentration at  high discharge current densities (\SI{10}{\milli\ampere\per\centi\meter\squared}). (However it is not shown, in ref.~\cite{Akolkar2013}, that the discharge time of \SI{2500}{\second} can be reached at this current density)
 \end{itemize}
 
+\subsection{Dendrites through the lens of continuum modeling}
+The ref.~\cite{Akolkar2013} by Rohan uses a simple diffusion model with two different kinetic rates: flat electrode kinetic rate and tip dendrite kinetic rate. The reaction rate for lithium depositing on the tip increases as the concentration gradient reduces. The author also gives a quantitative model to compute the thickness of the layer. This model further shows that the concentrated solution theory does not play an important role and a simpler Fickian theory could be used instead. The parameters used in their simulations were
 
+\begin{table}
+	\begin{center}%
+		\begin{tabular}{|c|c|c|}
+			\hline 
+			parameter & value & unit &  &  & \tabularnewline
+			\hline 
+			\hline 
+			limiting current density & \num{25.7} & \si{\milli\ampere\per\centi\meter\squared} \tabularnewline
+			\hline 
+			dendrite tip radii & \num{1} & \si{\micro\meter} \tabularnewline
+			\hline 
+			$\alpha_{\textrm{c}}$ & $0.2-0.4$ & $1$ \tabularnewline
+			\hline 
+			$j_{0}$ & \num{0.2} & \si{\milli\ampere\per\centi\meter\squared} \tabularnewline
+			\hline 
+			\ce{c^0_{Li}} & \num{1} & \si{\Molar} \tabularnewline
+			\hline 
+			$\delta$ (thickness) & \num{400} & \si{\micro\meter} \tabularnewline
+			\hline 
+			$\gamma$ (surface tension) & \num{4e-5} & \si{\joule\per\centi\meter\squared} \tabularnewline
+			\hline 
+			\ce{t^+} & \num{0.2} & $1$ \tabularnewline
+			\hline 
+			$a$ & \num{2.582e-5} & \si{\centi\meter\squared\per\second} \tabularnewline
+			\hline 
+			$b$ & \num{2.856} & \si{\per\Molar} \tabularnewline			
+			\hline
+		\end{tabular}
+	\end{center}
+\caption{Simulation values from \cite{Akolkar2013}}
+\end{table}
+
+Rohan discusses that detached lithium is a source of failure, however, Ely~\cite{Ely2014} discusses that below a certain thickness the dendrite dissolves due to Laplacian pressure and
+dissolution kinetics. The nucleation and growth model is often studied using Phase-Field modeling technique(s) as discussed in ref.~\cite{Ely2014}. The authors neglected the effect of forced convection and diffusion gradient ($\Delta \ce{t^+}$) in their analysis. Instead of using a constant value of lithium diffusivity, they introduce an exponential function,
+\[D\left(\ce{c_{Li}}\right)=ae^{-b\ce{c_{Li}}}.\]The empirical parameters for the model are
+
+\begin{align}
+a& = \SI{2.582e-5}{\centi\meter\squared\per\second}\nonumber\\
+b&= \SI{2.856}{\per\Molar}
+\end{align}
+
+This relation is different from what is observed with oxygen diffusing through the electrolyte as discussed by Lauren and Justin. I am still not convinced on the concentration overpotential, \[\ce{c_e}=\ce{c_0}e^{\frac{n\eta_{\ce{c}}}{\ce{V_{T}}}}.\] The overpotential at the surface is
+\begin{equation}
+\eta_{f}=\eta_{a}+\eta_{c} = \alpha^{-1}_{c}\ce{V_{T}}\ln{\left(\frac{i_{f}}{i_{0}}\right)} - n^{-1}_{c}\ce{V_{T}}\ln{\left(\frac{\ce{c_{e}}}{\ce{c_{0}}}\right)}\label{eq:eta_f_Akolkar2013}
+\end{equation}
+and the overpotential at the tip is 
+\begin{equation}
+\eta_{t}=\eta_{a}+\eta_{c} + \eta_{s} = \alpha^{-1}_{c}\ce{V_{T}}\ln{\left(\frac{i_{t}}{i_{0}}\right)} - n^{-1}_{c}\ce{V_{T}}\ln{\left(1-\frac{i_{t}}{i_{L,t}}\right)} + \frac{2\gamma K}{nFr}\label{eq:eta_t_Akolkar2013}
+\end{equation}
+where $\eta_{s}$ is the voltage drop due to the surface energy of the curved dendrite tip. The authors assumed the overpotential between surface and tip is equal to the electrolyte potential, 
+\begin{equation}
+\eta_{f} -\eta_{t} = \phi_{t} - \phi_{f} = \Delta\phi.\label{eq:eta_assumption_Akolkar2013 }
+\end{equation}
+This value can be estimated using \[\Delta\phi=\frac{i_{avg}l_{c}}{\kappa}\] 
+The value of the tip current density can be calculated using the above relations (\ref{eq:eta_f_Akolkar2013,eq:eta_t_Akolkar2013,eq:eta_assumption_Akolkar2013 }) or can be simplified using the following assumptions: 1) the concentration overpotential at the tip is negligible; 2) $\eta_{f} -\eta_{t} = \phi_{t} - \phi_{f}$, to
+\begin{equation}
+\frac{\ce{V_{T}}}{\alpha_{c}}\ln{\left(\frac{i_{t}}{i_{f}}\right)}  + \frac{2\gamma K}{nFr} +  \frac{\ce{V_{T}}}{n}\ln{\left(\frac{\ce{c_{e}}}{\ce{c_{0}}}\right)} = 0
+\end{equation}
+Solving this non-linear equation gives the value of the tip current density. The thickness or the length of the dendrite according to Faraday's mass conversion theory,
+\begin{equation}
+h = \frac{M}{n\rho F} \int^t_0{i_t dt}.
+\end{equation}
+The limiting current density is calculated using,
+\begin{equation}
+i_{L,f} = \frac{nFa\left(1-e^{-bC_{0}}\right)}{\left(1-\ce{t^+}b\delta\right)}.
+\end{equation}
+Under steady-state conditions, the speed of dendrite growth, assuming the direction is normal to the surface -the concept of velocity can be reduced to speed, is 
+\begin{equation}
+\frac{i_{t}}{i_{f}} = \left{-\frac{1}{bC_{0}}\ln{\left[e^{-bC_{0}} + 
+\frac{i_{f}}{i_{L,f}}\left(1-e^{-bC_{0}}\right)\right]}\right}^{-\frac{\alpha_{C}}{n}}
+\end{equation}
+Authors mentioned that increasing the ratio would accelerate the dendrite growth. 
+
+Akolkar's~\cite{Akolkar2013} model show that difference in surface and tip current density, favorable reaction kinetic's (from transfer coefficient), bulk lithium concentration, and the lithium diffusivity (through the exponential coefficient) affects the rate of dendrite growth through $i_{t}/i_{f}$ ratio.
+
+\subsection{Dendrites through the lens of phase-field modeling}
+\subsubsection{Dendrites through Separator}
+Aniruddha Jana \textit{et. al.}~\cite{Jana2015} looked at how the dendrites pass throught the separator. Their conclusion was that the electric field distribution promotes tip-controlled growth. The equation for the thermodynamic critical size of the dendrite nucleus is
+\begin{equation}
+r_{eq} = -2\gamma_{NE}\Omega/\left(zF\eta_{eq}+\Delta g_{v}\Omega\right)
+\end{equation}
+where $\Delta g = \Delta g_{v} \left(\beta\right)$. The equation is taken from a different article.
+
+Similarly, the critical ``thermodynamic'' current density is,
+\begin{equation}
+I_{c,eq}=\frac{\sigma_{i}\Delta g_{v}\Omega}{zF\delta_{\xi}}\left(\frac{2\gamma_{NE}}{a\Delta g_{v}\cos^{2}\theta}+\frac{1}{\cos\theta}\right)
+\end{equation}
+\subsubsection{Needle like growth}
+David Ely's~\cite{Ely2014} discusses about lithium growth, dissolution, and substrate contact angle. The tip velocity $\propto$ local radius, this relationship is valid only after a terminal velocity is reached, this velocity depends on the electrolyte concentration. The reaction kinetics follow the tafel form below the limiting current density.
+
+The total gibbs free energy for an isothermal and isobaric system. The gradient energy coefficient was (this is the interpolation function): 
+\begin{equation}
+p\left(\psi\right) = \psi^3 \left(6\psi^2 - 15\psi+10\right)
+\end{equation}
+and the energy function (double well function)
+\begin{equation}
+g\left(\psi\right) = \psi^2\left(1-\psi^2\right)
+\end{equation}
+
+The authors mention that if no bias (galvanostatic) is applied the critical thickness decides whether the dendrite would dissolve or grow (not yet sure if this is meant by ``naturally evolve to their minimum energy configutation''). The voltage drop increases as the thickness of the dendrite increases (Mohit is not sure if they have a convincing argument in the favor of this observation, if this is accurate, what prevents this model to be applied and be practically used). The reference used~\cite{Rosso2001} show very small change in voltage, on the order of mV (smaller than the thermal voltage). In addition, the maximum current density tested was \SI{0.3}{\milli\ampere\per\centi\meter\squared}. 
+The shape of the tip depends on the electric field distribution, which makes them to change the shape from spherical to non-spherical. At high current densities, the shape changes from spherical to ``spear like'' after \SI{62}{\min} of charge. The shape evolves because the kinetics at the tip of the electrode increases the thickness, the three phase boundary at the base of the dendrite continues to thicken as it cannot reach the minimum free energy state. The authors also discuss a lot about effect of electrochemical shielding which allows the shape of the dendrites to be of the minimum energy (spherical). The authors discuss that the dendrite can detach for contact angles > 90$^o$ and at high current densities. This detachment is a result of dissolution, due to laplace pressure, and the need to maintain the contact angle between dendrite and substrate. The above mentioned analysis is limited to a nucleation and growth of a single dendrite. 
+For a large number of nucleation sites, at low current densities, they coalesce and grow together (as a layer). However, the dendrites grow as elongated needle at high current densities, some growing poorly and some growing a lot, they explain this as a result of screening and dissolution at the three phase boundary. The breaking of the dendrites is more likely if the nucleated dendrites cannot combine and grow, often seen at high discharge current densities. The authors found that smaller contact angles of the dendrites on the substrate would result in uniform layers.  
+
+\subsubsection{Moss like growth (fractal growth)}
+Yurkiv~\cite{Yurkiv2018} discusses the role of SEI layer. 
+\subsection{Dendrites through the lens of experiments}
 \subsection{How to reproduce dendrites predictable}
 \subsection{How to model NDE methods in COMSOL}
 \subsection{How to model dendrites (non-fractal method)}
@@ -2093,7 +2212,6 @@ Literature shows relationships between a number of factors that is already been 
 
 
 \subsection{Ionization models}
-\subsection{}
 
 \newpage
 \bibliographystyle{unsrt}
